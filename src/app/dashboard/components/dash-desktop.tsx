@@ -5,7 +5,7 @@ export const DashDesktopItem = (props:any) => {
     return (
         <>
             <div className={"w-[200px] hidden md:flex flex-col items-start justify-start mr-6 mt-6"}>
-                <SideMenuHeader setOpen={props.setOpen} open={open}/>
+                <SideMenuHeader setOpen={props.setOpen} open={props?.open}/>
                 <SideMenuItem svg={'/cat1.svg'} alt={"dashboard"} title={"Dashboard"} route={'dashboard'}/>
                 <SideMenuItem svg={'/cat2.svg'} alt={"category"} title={"Category"} route={'dashboard/category'}/>
                 <SideMenuItem svg={'/cat3.svg'} alt={"product"} title={"Product"} route={'dashboard/product'}/>

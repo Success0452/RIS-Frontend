@@ -27,12 +27,14 @@ export default function DashboardPage() {
 
     const getProducts = async() => {
         const allProducts = await getAllProducts(setCategoryLoading);
-        const user = localStorage.getItem('username')
         if(allProducts.statusCode === 200){
             //@ts-ignore
             setProducts(allProducts.data);
         }
-        setUsername(user!);
+        if (typeof window !== "undefined") {
+            const user = localStorage.getItem('username');
+            setUsername(user!);
+        }
     }
 
     const filterProduct = (search:string) => {

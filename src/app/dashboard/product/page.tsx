@@ -4,8 +4,7 @@ import {useEffect, useState} from "react";
 import {ProductTopItem} from "src/app/dashboard/product/components/product-top-item";
 import {ProductListItem} from "src/app/dashboard/product/components/product-list-item";
 import {SearchItem} from "src/app/dashboard/components/search-item";
-import {getAllCategories} from "src/server/category";
-import {getAllProducts, getCategorizedProducts, searchProducts} from "src/server/product";
+import {getCategorizedProducts, searchProducts} from "src/server/product";
 import Lottie from "react-lottie";
 import {defaultOptions} from "src/components/default-option";
 

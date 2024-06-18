@@ -9,6 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Retail",
   description: "simplified multi-platform application for managing a retail store’s product inventory",
+  referrer: "origin-when-cross-origin",
 };
 
 export default function RootLayout({
