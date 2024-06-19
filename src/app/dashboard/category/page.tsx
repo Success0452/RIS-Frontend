@@ -42,7 +42,7 @@ export default function ProductPage() {
     }, []);
 
     return (
-        <DashboardCustomHeader setIsLoading={setIsLoading}>
+        <DashboardCustomHeader>
             {isLoading ? <div className={'flex flex-col items-center justify-center w-full h-full'}>
                 <Lottie options={defaultOptions} width={100} height={50}/>
             </div> : <>
