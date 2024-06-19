@@ -1,4 +1,4 @@
-import axios, { AxiosResponse, AxiosError } from 'axios';
+import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 
 const BASE_URL = 'https://681gpctgg1.execute-api.us-east-1.amazonaws.com/dev';
@@ -21,14 +21,13 @@ const handleSuccessResponse = (response: AxiosResponse): SuccessResponse => {
     return {
         success: true,
         statusCode: response.status,
-        data: response.data.response,
+        data: response.data.data ?? response.data,
     };
 };
 
 const handleErrorResponse = (error: AxiosError): ErrorResponse => {
     let errorMessage = 'An error occurred';
     let statusCode = 500;
-    console.log(error.message);
     if (error.response) {
         console.log(error.response);
         statusCode = error.response.status;
@@ -54,13 +53,23 @@ export const apiRequest = async <T = any>(method: 'get' | 'post' | 'put' | 'dele
             baseURL: BASE_URL,
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-                'Accept': 'application/json'
+                'Authorization': `Bearer ${token}`
             },
         });
-        const response: AxiosResponse<T> = await api[method](url, data);
+        let response: AxiosResponse<T>;
+
+        if (method === 'delete' && data) {
+            response = await api.request<T>({
+                method: 'delete',
+                url: url,
+                data: data
+            });
+        } else {
+            response = await api[method](url, data);
+        }
         return handleSuccessResponse(response);
     } catch (error) {
+        console.error(error);
         return handleErrorResponse(error as AxiosError);
     }
 };

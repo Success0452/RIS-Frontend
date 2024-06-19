@@ -21,9 +21,9 @@ export const SelectBox: FC<SelectFieldProps> = ({ value, setValue, placeholder, 
                 onChange={(e) => setValue(e.target.value)}
                 // className="w-full h-[36px] border-[1px] border-[#DBDADE] rounded-[8px] p-2 bg-transparent"
                 className="border-[1px] border-gray-500 text-black rounded-[8px] w-full p-4"
-                style={{ height: height ? `${height}px` : 'auto', padding: '10px' }}
+                style={{height: height ? `${height}px` : 'auto', padding: '10px'}}
             >
-                {list.map((option:any, index:number) => (
+                {list.map((option: any, index: number) => (
                     <option key={index} value={optionId ? option.id : option}>
                         {optionId ? option?.name : option}
                     </option>

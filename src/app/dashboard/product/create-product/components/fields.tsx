@@ -13,7 +13,7 @@ export const CreateProductFields = (props:any) => {
 
             <div className={"flex flex-col items-start justify-start w-full mt-5"}>
                 <div className={"text-[14px] text-black font-[500] mb-3"}>Product Description</div>
-                <TextBox value={props.description} setValue={props.setDescription} isTextarea={true} height={100}
+                <TextBox value={props.productDescription} setValue={props.setProductDescription} isTextarea={true} height={100}
                          placeholder={'Description Name'}
                          inputType={'name'}/>
             </div>
@@ -33,9 +33,9 @@ export const CreateProductFields = (props:any) => {
             </div>
 
             <div className={"flex flex-col items-start justify-start w-full mt-5"}>
-                <div className={"text-[14px] text-black font-[500] mb-3"}>Quantity</div>
+                <div className={"text-[14px] text-black font-[500] mb-3"}>Category</div>
                 <SelectBox value={props.categoryType} setValue={props.setCategoryType} optionId={true} height={40}
-                         placeholder={'CategoryType'} list={['Select', props?.categories]}/>
+                         placeholder={'CategoryType'} list={['Select', ...props?.categories]}/>
             </div>
         </div>
     )

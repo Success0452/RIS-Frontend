@@ -7,8 +7,8 @@ export const FilteredProduct = (props:any) => {
             <div
                 className={"flex flex-row overflow-x-scroll scrollbar-hide items-center justify-start w-full"}>
                 {props?.product?.data.map((item:any, index:number) => (
-                    <div key={index} className={'ml-6 w-full'}>
-                        <ProductItem product={item} refreshList={props?.refreshList} setIsLoading={props?.setIsLoading} />
+                    <div key={index} className={'mr-6'}>
+                        <ProductItem product={item} setIsLoading={props?.setIsLoading} />
                     </div>
                 ))}
             </div>

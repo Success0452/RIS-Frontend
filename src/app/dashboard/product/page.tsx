@@ -4,9 +4,10 @@ import {useEffect, useState} from "react";
 import {ProductTopItem} from "src/app/dashboard/product/components/product-top-item";
 import {ProductListItem} from "src/app/dashboard/product/components/product-list-item";
 import {SearchItem} from "src/app/dashboard/components/search-item";
-import {getCategorizedProducts, searchProducts} from "src/server/product";
+import {getCategorizedProducts, searchProductsByName} from "src/server/product";
 import Lottie from "react-lottie";
 import {defaultOptions} from "src/components/default-option";
+import {EmptyState} from "src/app/dashboard/components/empty-state";
 
 export default function ProductPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -17,9 +18,12 @@ export default function ProductPage() {
 
     const getProducts = async() => {
         const allProducts = await getCategorizedProducts(setIsLoading);
+        console.log(allProducts, 'all');
         if(allProducts?.statusCode === 200){
             // @ts-ignore
             setProducts(allProducts?.data);
+            // @ts-ignore
+            setFilteredList(allProducts?.data);
         }
     }
 
@@ -28,14 +32,10 @@ export default function ProductPage() {
         if(search === ""){
             setFilteredList(products);
         }else {
-            const filteredProducts = searchProducts(products, search);
+            const filteredProducts = searchProductsByName(products, search);
             // @ts-ignore
             setFilteredList(filteredProducts);
         }
-    }
-
-    const refreshList = () => {
-        setFilteredList(products);
     }
 
     useEffect(() => {
@@ -43,7 +43,7 @@ export default function ProductPage() {
     }, []);
 
     return (
-        <DashboardCustomHeader>
+        <DashboardCustomHeader setIsLoading={setIsLoading}>
             {isLoading ?
                 <div className={'flex flex-col items-center justify-center w-full h-full'}>
                     <Lottie options={defaultOptions} width={100} height={50}/>
@@ -53,7 +53,8 @@ export default function ProductPage() {
 
                  <SearchItem searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterProduct={filterProduct}/>
 
-                 <ProductListItem filteredList={filteredList} setIsLoading={setIsLoading} refreshList={refreshList}/>
+                    {filteredList.length === 0 ? <EmptyState message="No products found."/> :
+                        <ProductListItem filteredList={filteredList} setIsLoading={setIsLoading}/>}
              </>}
         </DashboardCustomHeader>
     )

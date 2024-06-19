@@ -25,7 +25,7 @@ export const addProduct = async(name:string, description:string, price:string, q
     setIsLoading(true)
     const apiResponse = await apiRequest(
         'post',
-        '/product',
+        '/products',
         {
             name: name,
             description: description,
@@ -50,7 +50,7 @@ export const addProduct = async(name:string, description:string, price:string, q
 
 export const getAllProducts = async(setIsLoading:any) => {
     setIsLoading(true)
-    const apiResponse = await apiRequest('get', '/product');
+    const apiResponse = await apiRequest('get', '/products');
     console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         setIsLoading(false)
@@ -66,11 +66,12 @@ export const getAllProducts = async(setIsLoading:any) => {
 
 export const getSingleProduct = async(productId:string, setIsLoading:any) => {
     setIsLoading(true)
-    const apiResponse = await apiRequest('get', '/product');
+    const apiResponse = await apiRequest('get', '/products');
     console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         //@ts-ignore
-        const singleProduct = apiResponse?.data?.find((item) => item.id === productId);
+        const singleProduct = apiResponse?.data?.filter((item) => String(item.id) === productId);
+        console.log(singleProduct, 'singleProduct');
         setIsLoading(false);
         return {
             statusCode: apiResponse.statusCode,
@@ -87,7 +88,7 @@ export const getSingleProduct = async(productId:string, setIsLoading:any) => {
 
 export const getCategorizedProducts = async(setIsLoading:any) => {
     setIsLoading(true)
-    const apiResponse = await apiRequest('get', '/product');
+    const apiResponse = await apiRequest('get', '/products');
     console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         const categoryResponse = await apiRequest('get', '/categories');
@@ -131,7 +132,7 @@ export const updateProduct = async(name:string, description:string, price:string
     setIsLoading(true)
     const apiResponse = await apiRequest(
         'put',
-        '/product',
+        '/products',
         {
             name: name,
             description: description,
@@ -158,9 +159,9 @@ export const deleteProduct = async(productId:string, setIsLoading:any) => {
     setIsLoading(true)
     const apiResponse = await apiRequest(
         'delete',
-        '/product',
+        '/products',
         {
-            productId: productId
+            productId: productId,
         }
     );
     console.log(apiResponse);
@@ -177,5 +178,13 @@ export const deleteProduct = async(productId:string, setIsLoading:any) => {
 }
 
 export const searchProducts = (names: any[], searchTerm: string) => {
-    return names.filter(name => name.toLowerCase().includes(searchTerm.toLowerCase()));
+    return names.filter((item:any) => String(item.categoryId) === String(searchTerm));
+}
+
+export const searchProductsByName = (names: any[], searchTerm: string) => {
+    return names.filter((item:any) => String(item?.category).toLowerCase().includes(String(searchTerm).toLowerCase()));
+}
+
+export const searchCategoryByName = (names: any[], searchTerm: string) => {
+    return names.filter((item:any) => String(item?.name).toLowerCase().includes(String(searchTerm).toLowerCase()));
 }

@@ -32,8 +32,7 @@ export default function Login() {
                     <CustomButton title={'Login'} onClick={() => {
                         login(username, password, setIsLoading).then((res) => {
                             if(res?.statusCode === 200){
-                                console.log('i got here')
-                                // router.push('/dashboard')
+                                router.replace('/dashboard')
                             }
                         })
                     }}/>

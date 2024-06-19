@@ -16,7 +16,7 @@ export const ProductBox = (props: any) => {
                     className={"cursor-pointer bg-white w-[25px] h-[25px] rounded-[10px] flex items-center justify-center"} onClick={() => {
                         deleteProduct(props?.product?.id, props?.setIsLoading).then((data) => {
                             if(data?.statusCode === 200){
-                                props?.refreshList();
+                                window.location.reload();
                             }
                         })
                 }}>

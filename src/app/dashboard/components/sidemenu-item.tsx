@@ -8,15 +8,18 @@ interface SideMenuProps {
     title?: string;
     route?: string;
     alt?: string;
+    noClick?: boolean
 }
 
-export const SideMenuItem: FC<SideMenuProps> = ({ svg, title, route, alt}) => {
+export const SideMenuItem: FC<SideMenuProps> = ({ svg, title, route, noClick, alt}) => {
     const router = useRouter();
     const pathname = usePathname();
 
     return (
         <div className={`flex flex-row items-center start w-full ${pathname.split('/').pop() === route?.split('/').pop() && 'bg-[#F8F8F8]'} hover:bg-[#F8F8F8] cursor-pointer rounded-[6px] h-[38px] mt-3`} onClick={() => {
-            router.push(`/${route}`)
+            if (!noClick) {
+                router.push(`/${route}`)
+            }
         }}>
             <div className={"flex flex-row items-center justify-start w-full lg:pl-3"}>
                 <Image src={svg} width={20} height={20} alt={'alt'}/>

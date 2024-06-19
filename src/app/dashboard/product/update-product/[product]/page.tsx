@@ -29,8 +29,8 @@ export default function UpdateProductPage() {
     }
 
     const getProduct = async() => {
-        console.log(product);
-        const singleResponse = await getSingleProduct(product[0], setIsLoading);
+        // @ts-ignore
+        const singleResponse = await getSingleProduct(product, setIsLoading);
         if(singleResponse.statusCode === 200){
             //@ts-ignore
             const productResponse = singleResponse?.data;
@@ -38,7 +38,8 @@ export default function UpdateProductPage() {
             setProductDescription(productResponse?.description);
             setProductName(productResponse?.name);
             setPrice(productResponse?.price);
-            setProductObject(productResponse)
+            setProductObject(productResponse);
+            setCategoryType(productResponse?.categoryId);
         }
     }
 
@@ -79,7 +80,7 @@ export default function UpdateProductPage() {
                     setCategoryType={setCategoryType}
                     setQuantity={setQuantity}
                     setPrice={setPrice}
-                    productId={product[0]}
+                    productId={product}
                 />
             </div>
         </DashboardCustomHeader>

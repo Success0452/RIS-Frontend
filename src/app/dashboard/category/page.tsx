@@ -1,17 +1,14 @@
 "use client"
 import {DashboardCustomHeader} from "src/app/dashboard/components/dash-header";
-import {StaticCustomButton} from "src/components/button";
-import Image from "next/image";
 import {useEffect, useState} from "react";
-import {TextBox} from "src/components/field";
-import {SideMenuHeader} from "src/app/dashboard/components/sidemenu-header";
 import {CategoryListItem} from "src/app/dashboard/category/components/category-list-item";
 import {SearchItem} from "src/app/dashboard/components/search-item";
 import {CategoryTopItem} from "src/app/dashboard/category/components/category-top-item";
-import {getCategorizedProducts, searchProducts} from "src/server/product";
+import {searchCategoryByName, searchProducts} from "src/server/product";
 import {getAllCategories} from "src/server/category";
 import Lottie from "react-lottie";
 import {defaultOptions} from "src/components/default-option";
+import {EmptyState} from "src/app/dashboard/components/empty-state";
 
 export default function ProductPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -20,10 +17,12 @@ export default function ProductPage() {
     const [categories, setCategories] = useState([]);
 
     const getCategory = async() => {
-        const allProducts = await getAllCategories(setIsLoading);
-        if(allProducts?.statusCode === 200){
+        const allCategories = await getAllCategories(setIsLoading);
+        if(allCategories?.statusCode === 200){
             // @ts-ignore
-            setCategories(allProducts?.data);
+            const category = allCategories?.data;
+            setCategories(category);
+            setFilteredList(category);
         }
     }
 
@@ -32,7 +31,7 @@ export default function ProductPage() {
         if(search === ""){
             setFilteredList(categories);
         }else {
-            const filteredProducts = searchProducts(categories, search);
+            const filteredProducts = searchCategoryByName(categories, search);
             // @ts-ignore
             setFilteredList(filteredProducts);
         }
@@ -43,7 +42,7 @@ export default function ProductPage() {
     }, []);
 
     return (
-        <DashboardCustomHeader>
+        <DashboardCustomHeader setIsLoading={setIsLoading}>
             {isLoading ? <div className={'flex flex-col items-center justify-center w-full h-full'}>
                 <Lottie options={defaultOptions} width={100} height={50}/>
             </div> : <>
@@ -51,7 +50,8 @@ export default function ProductPage() {
 
                 <SearchItem searchTerm={searchTerm} setSearchTerm={setSearchTerm} filterProduct={filterProduct}/>
 
-                <CategoryListItem filteredList={filteredList} setIsLoading={setIsLoading}/>
+                {filteredList.length === 0 ? <EmptyState message="No categories found."/> :
+                    <CategoryListItem filteredList={filteredList} setIsLoading={setIsLoading}/>}
             </>}
         </DashboardCustomHeader>
     )

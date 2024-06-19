@@ -32,7 +32,7 @@ export default function Register() {
                     : <CustomButton title={'Register'} onClick={() => {
                         register(username, password, setIsLoading).then((res) => {
                             if(res?.statusCode === 201){
-                                router.push('/dashboard')
+                                router.replace('/dashboard')
                             }
                         })
                     }} />

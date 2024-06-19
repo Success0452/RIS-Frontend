@@ -31,7 +31,7 @@ export default function CreateProductPage() {
     return (
         <DashboardCustomHeader>
             <div className={'flex flex-col items-center justify-center w-full'}>
-                <CreateProductHeader title={"Create Category"} />
+                <CreateProductHeader title={"Create Product"} />
 
                 <CreateProductFields
                     productName={productName}

@@ -8,6 +8,7 @@ import {getAllProducts, searchProducts} from "src/server/product";
 import {defaultOptions} from "src/components/default-option";
 import Lottie from "react-lottie";
 import {getAllCategories} from "src/server/category";
+import {EmptyState} from "src/app/dashboard/components/empty-state";
 
 export default function DashboardPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -21,7 +22,8 @@ export default function DashboardPage() {
     const getCategory = async() => {
         const allCategories = await getAllCategories(setIsLoading);
         if (allCategories.statusCode === 200) {
-            setCategories(allCategories);
+            //@ts-ignore
+            setCategories(allCategories.data);
         }
     }
 
@@ -30,10 +32,13 @@ export default function DashboardPage() {
         if(allProducts.statusCode === 200){
             //@ts-ignore
             setProducts(allProducts.data);
+            //@ts-ignore
+            setFilteredList(allProducts.data)
         }
         if (typeof window !== "undefined") {
-            const user = localStorage.getItem('username');
-            setUsername(user!);
+            const user = localStorage.getItem('user');
+            const extracted = JSON.parse(user!!);
+            setUsername(extracted.username);
         }
     }
 
@@ -48,17 +53,13 @@ export default function DashboardPage() {
         }
     }
 
-    const refreshList = () => {
-        setFilteredList(products);
-    }
-
     useEffect(() => {
         getProducts();
         getCategory();
     }, [])
 
     return (
-        <DashboardCustomHeader>
+        <DashboardCustomHeader setIsLoading={setIsLoading}>
             {isLoading ?
                 <div className={'flex flex-col items-center justify-center w-full h-full'}>
                     <Lottie options={defaultOptions} width={100} height={50}/>
@@ -68,7 +69,8 @@ export default function DashboardPage() {
 
                 <DashFilter searchTerm={searchTerm} setSearchTerm={filterProduct} categories={categories} />
 
-                <ListItem products={filteredList} setIsLoading={setIsLoading} refreshList={refreshList} />
+                    {filteredList.length === 0 ? <EmptyState message="No products found."/> :
+                        <ListItem products={filteredList} setIsLoading={setIsLoading}/>}
                </>
             }
         </DashboardCustomHeader>

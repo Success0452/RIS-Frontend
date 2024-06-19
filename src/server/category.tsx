@@ -29,7 +29,7 @@ export const getAllCategories = async(setIsLoading:any) => {
     if(apiResponse.statusCode === 200){
         setIsLoading(false)
         //@ts-ignore
-        return apiResponse?.data;
+        return apiResponse;
     }else{
         if ("message" in apiResponse) {
             toast.info(apiResponse.message);
