@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import Cookies from 'js-cookie';
 
-const BASE_URL = '';
+const BASE_URL = 'https://681gpctgg1.execute-api.us-east-1.amazonaws.com/dev';
 
 interface SuccessResponse<T = any> {
     success: true;
