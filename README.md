@@ -1,5 +1,5 @@
 ![NextJs](https://img.shields.io/badge/NextJS.x-red)
-![Typescript](https://img.shields.io/badge/typescript-4.x-blue)
+![Typescript](https://img.shields.io/badge/typescript-5.x-blue)
 ![Api](https://img.shields.io/badge/api-axios-blue)
 ![Yarn](https://img.shields.io/badge/yarn-3.6.4-blue)
 
