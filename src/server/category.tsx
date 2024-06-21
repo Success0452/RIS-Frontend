@@ -8,7 +8,6 @@ export const addCategory = async(name:string, setIsLoading:any) => {
     }
     setIsLoading(true)
     const apiResponse = await apiRequest('post', '/categories', {name: name});
-    console.log(apiResponse);
     if(apiResponse.statusCode === 201){
         toast.success('new category added successfully.');
         setIsLoading(false)
@@ -25,7 +24,6 @@ export const addCategory = async(name:string, setIsLoading:any) => {
 export const getAllCategories = async(setIsLoading:any) => {
     setIsLoading(true)
     const apiResponse = await apiRequest('get', '/categories');
-    console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         setIsLoading(false)
         //@ts-ignore

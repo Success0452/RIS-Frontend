@@ -18,7 +18,6 @@ export default function ProductPage() {
 
     const getProducts = async() => {
         const allProducts = await getCategorizedProducts(setIsLoading);
-        console.log(allProducts, 'all');
         if(allProducts?.statusCode === 200){
             // @ts-ignore
             setProducts(allProducts?.data);

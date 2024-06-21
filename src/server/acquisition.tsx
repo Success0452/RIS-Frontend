@@ -9,7 +9,6 @@ export const register = async(username:string, password:string, setIsLoading:any
     }
     setIsLoading(true)
     const apiResponse = await apiRequest('post', '/register', {username: username, password: password});
-    console.log(apiResponse);
     if(apiResponse.statusCode === 201){
         toast.success('registration successful');
         setIsLoading(false)
@@ -29,7 +28,6 @@ export const login = async(username:string, password:string, setIsLoading:any) =
     }
     setIsLoading(true)
     const apiResponse = await apiRequest('post', '/login', {username: username, password: password});
-    console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         // @ts-ignore
         Cookies.set('token', apiResponse.data.token);

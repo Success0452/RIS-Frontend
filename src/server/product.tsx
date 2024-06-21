@@ -34,7 +34,6 @@ export const addProduct = async(name:string, description:string, price:string, q
             categoryId: categoryId
         }
         );
-    console.log(apiResponse);
     if(apiResponse.statusCode === 201){
         toast.success('new product added successfully.');
         setIsLoading(false)
@@ -51,7 +50,6 @@ export const addProduct = async(name:string, description:string, price:string, q
 export const getAllProducts = async(setIsLoading:any) => {
     setIsLoading(true)
     const apiResponse = await apiRequest('get', '/products');
-    console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         setIsLoading(false)
         return apiResponse;
@@ -67,11 +65,9 @@ export const getAllProducts = async(setIsLoading:any) => {
 export const getSingleProduct = async(productId:string, setIsLoading:any) => {
     setIsLoading(true)
     const apiResponse = await apiRequest('get', '/products');
-    console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         //@ts-ignore
         const singleProduct = apiResponse?.data?.filter((item) => String(item.id) === productId);
-        console.log(singleProduct, 'singleProduct');
         setIsLoading(false);
         return {
             statusCode: apiResponse.statusCode,
@@ -89,7 +85,6 @@ export const getSingleProduct = async(productId:string, setIsLoading:any) => {
 export const getCategorizedProducts = async(setIsLoading:any) => {
     setIsLoading(true)
     const apiResponse = await apiRequest('get', '/products');
-    console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         const categoryResponse = await apiRequest('get', '/categories');
         setIsLoading(false)
@@ -142,7 +137,6 @@ export const updateProduct = async(name:string, description:string, price:string
             productId: productId,
         }
         );
-    console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         setIsLoading(false)
         return apiResponse;
@@ -164,7 +158,6 @@ export const deleteProduct = async(productId:string, setIsLoading:any) => {
             productId: productId,
         }
     );
-    console.log(apiResponse);
     if(apiResponse.statusCode === 200){
         setIsLoading(false)
         return apiResponse;

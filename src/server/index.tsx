@@ -29,7 +29,6 @@ const handleErrorResponse = (error: AxiosError): ErrorResponse => {
     let errorMessage = 'An error occurred';
     let statusCode = 500;
     if (error.response) {
-        console.log(error.response);
         statusCode = error.response.status;
         // @ts-ignore
         errorMessage = error.response.data.message || errorMessage;
