@@ -12,6 +12,7 @@ import {defaultOptions} from "src/components/default-option";
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [address, setAddress] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
@@ -25,6 +26,8 @@ export default function Login() {
                    setUsername={setUsername}
                    password={password}
                    setPassword={setPassword}
+                   address={address}
+                   setAddress={setAddress}
                 />
 
                 {isLoading ?

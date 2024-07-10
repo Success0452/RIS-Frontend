@@ -17,7 +17,8 @@ export const register = async(username:string, password:string, setIsLoading:any
         if ("message" in apiResponse) {
             toast.info(apiResponse.message);
         }
-        setIsLoading(false)
+        setIsLoading(false);
+        return apiResponse;
     }
 }
 
