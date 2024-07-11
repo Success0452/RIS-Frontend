@@ -8,21 +8,22 @@ const LocationAutoSuggest = (props:any) => {
         if (props.query.length > 2) {
             const fetchSuggestions = async () => {
                 try {
-                    const response = await axios.get(
-                        `https://maps.googleapis.com/maps/api/place/autocomplete/json`,
-                        {
-                            params: {
-                                input: props.query,
-                                key: process.env.GOOGLE_MAP_KEY,
-                                types: 'geocode'
-                            },
-                            headers: {
-                                "Content-Type": 'application/json'
-                            }
+                    const fetchSuggestions = async () => {
+                        try {
+                            const response = await axios(
+                                {
+                                    method: 'GET',
+                                    url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${props.query}&types=geocode&key=AIzaSyC32IGaEn9VO2uG0EDv8F7UmgZ54Cb3H_k`
+                                }
+                            );
+                            console.log('response', response);
+                            setSuggestions(response.data.predictions);
+                        }catch (e) {
+                            console.log(e);
                         }
-                    );
-                    console.log('response', response);
-                    setSuggestions(response.data.predictions);
+                    };
+                    fetchSuggestions();
+                    console.log('fetchSuggestions');
                 }catch (e) {
                     console.log(e);
                 }
