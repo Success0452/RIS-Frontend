@@ -13,7 +13,7 @@ const LocationAutoSuggest = (props:any) => {
                             const response = await axios(
                                 {
                                     method: 'GET',
-                                    url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${props.query}&types=geocode&key=${process.env.GOOGLE_MAP_KEY}`,
+                                    url: `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${props.query}&types=geocode&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY}`,
                                 }
                             );
                             console.log('response', response);
@@ -21,9 +21,9 @@ const LocationAutoSuggest = (props:any) => {
                         }catch (e) {
                             console.log(e);
                         }
+                        console.log('fetchSuggestions');
                     };
                     fetchSuggestions();
-                    console.log('fetchSuggestions');
                 }catch (e) {
                     console.log(e);
                 }
