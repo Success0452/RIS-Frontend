@@ -18,7 +18,7 @@ export const LoginFields = (props:any) => {
                          inputType={'password'}/>
             </div>
 
-            <div className={"flex flex-col items-start justify-start w-full mt-6 mb-10"}>
+            <div className={"hidden flex-col items-start justify-start w-full mt-6 mb-10"}>
                 <div className={"text-[14px] text-black font-[500] mb-3"}>Location</div>
                 <LocationAutoSuggest setQuery={props.setAddress} query={props.address} />
             </div>
